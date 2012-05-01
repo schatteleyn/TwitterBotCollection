@@ -1,0 +1,1 @@
+This is a Twitter bot in Ruby, based on the french movie "La Cité De La Peur". It crawls Twitter looking for the word "tapette" and reply "Monsieur n’est pas une tapette. Monsieur est commissaire de police."
