@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 require 'rubygems'
 require 'chatterbot/dsl'
 require 'date'
@@ -51,12 +53,16 @@ def Easter(year)
     m = (a + 11 * h + 22 * l) / 451
     month = (h + l - 7 * m + 114) / 31
     day = ((h + l - 7 * m + 114) % 31) + 1
-    dt = Date.new(year, month, day)
+    dt = DateTime.new(year, month, day)
     easter_day = "#{dt.day}/#{dt.month}"
-    easter_monday = "#{dt.day + 1}/#{dt.month}"
-    ascension = "#{dt.day + 39}/#{dt.month}"
-    pentecost = "#{dt.day + 49}/#{dt.month}"
-    pentecost_monday = "#{dt.day + 50}/#{dt.month}"
+    dt = dt + 1
+    easter_monday = "#{dt.day}/#{dt.month}"
+    dt = dt + 39
+    ascension = "#{dt.day}/#{dt.month}"
+    dt = dt + 49
+    pentecost = "#{dt.day}/#{dt.month}"
+    dt = dt + 50
+    pentecost_monday = "#{dt.day}/#{dt.month}"
     easter = Hash[easter_day => "le dimanche de Pâques !", easter_monday => "le lundi de Pâques !", ascension => "l'AScension.", pentecost => "la Pentecôte", pentecost_monday => "le lundi de Pentecôte."]
     return easter
 end
