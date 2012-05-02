@@ -57,8 +57,8 @@ def Easter(year)
     
     easter_day = "#{dt.day}/#{dt.month}"
     easter_days = {1 => :easter_monday, 39 => :ascension, 49 => :pentecost, 50 => :pentecost_monday}
-    easter_days.each do |day, name|
-      dt += day
+    easter_days.each do |eday, name|
+      dt += eday
       name = "#{dt.day}/#{dt.month}"
     end
     
