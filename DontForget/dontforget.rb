@@ -21,6 +21,6 @@ dates = { "1/1" => "la nouvelle année ! Bonne année à tous !",
 
 dates.each do |day, value|
   if today == day
-    reply "Aujourd'hui c'est + #{value}"
+    reply "Aujourd'hui c'est #{value}"
   end
 end
