@@ -3,6 +3,8 @@ require 'chatterbot/dsl'
 require 'date'
 
 today = "#{Time.now.day}/#{Time.now.month}"
+year = Time.now.year
+easter_hash = Easter(year)
 
 dates = { "1/1" => "la nouvelle année ! Bonne année à tous !",
           "2/2" => "la Chandeleur ! N'abusez pas trop des crêpes :)",
@@ -20,9 +22,41 @@ dates = { "1/1" => "la nouvelle année ! Bonne année à tous !",
           "25/12" => "Noël. Apportez les cadeaux !",
           "31/12" => "le réveillon de la St Sylvestre."
         }
+dates.merge! easter_hash
 
 dates.each do |day, value|
   if today == day
     reply "Aujourd'hui c'est #{value}"
   end
+end
+
+
+# Algorithm for calculating the date of Easter Sunday
+# (Meeus/Jones/Butcher Gregorian algorithm)
+# http://en.wikipedia.org/wiki/Computus#Meeus.2FJones.2FButcher_Gregorian_algorithm
+
+def Easter(year)
+    y = year
+    a = y % 19
+    b = y / 100
+    c = y % 100
+    d = b / 4
+    e = b % 4
+    f = (b + 8) / 25
+    g = (b - f + 1) / 3
+    h = (19 * a + b - d - g + 15) % 30
+    i = c / 4
+    k = c % 4
+    l = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l) / 451
+    month = (h + l - 7 * m + 114) / 31
+    day = ((h + l - 7 * m + 114) % 31) + 1
+    dt = Date.new(year, month, day)
+    easter_day = "#{dt.day}/#{dt.month}"
+    easter_monday = "#{dt.day + 1}/#{dt.month}"
+    ascension = "#{dt.day + 39}/#{dt.month}"
+    pentecost = "#{dt.day + 49}/#{dt.month}"
+    pentecost_monday = "#{dt.day + 50}/#{dt.month}"
+    easter = Hash[easter_day => "le dimanche de Pâques !", easter_monday => "le lundi de Pâques !", ascension => "l'AScension.", pentecost => "la Pentecôte", pentecost_monday => "le lundi de Pentecôte."]
+    return easter
 end
