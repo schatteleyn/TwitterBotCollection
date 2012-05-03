@@ -56,12 +56,13 @@ def Easter(year)
     dt = DateTime.new(year, month, day)
     
     easter_day = "#{dt.day}/#{dt.month}"
-    easter_days = {1 => :easter_monday, 38 => :ascension, 10 => :pentecost, 1 => :pentecost_monday}
+    easter_days = {1 => :easter_monday, 38 => :ascension, 10 => :pentecost}
     easter_days.each do |eday, name|
       dt += eday
       name = "#{dt.day}/#{dt.month}"
     end
+    pentecost_monday = pentecost + 1 
     
-    easter = Hash[easter_day => "le dimanche de Pâques !", :easter_monday => "le lundi de Pâques !", :ascension => "l'Ascension.", :pentecost => "la Pentecôte", :pentecost_monday => "le lundi de Pentecôte."]
+    easter = Hash[easter_day => "le dimanche de Pâques !", :easter_monday => "le lundi de Pâques !", :ascension => "l'Ascension.", :pentecost => "la Pentecôte", pentecost_monday => "le lundi de Pentecôte."]
     return easter
 end
